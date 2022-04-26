@@ -1,0 +1,53 @@
+$(".error-text").hide();
+
+
+
+
+$("#formId").submit(function (e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+
+    $.ajax({
+        type: "post",
+        url: "include/change_pass.php",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+
+        success: function (data) {
+
+
+
+            if (data.status) {
+                swal({
+                    title: data.title,
+                    text: data.message,
+                    type: "success"
+                }, function () {
+
+                    window.open('signin.php');
+
+
+                });
+
+
+            }
+            else {
+                $(".error-text").show();
+                $(".error-text").html(data);
+
+
+            }
+        }
+
+
+    })
+
+});
+
+
+
+
+
+
